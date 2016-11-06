@@ -5,7 +5,6 @@ const TelegramBaseController = Telegram.TelegramBaseController
 const TelegramBaseCallbackQueryController = Telegram.TelegramBaseCallbackQueryController
 const TextCommand = Telegram.TextCommand
 const tg = new Telegram.Telegram('239266375:AAGKAncJinz7lVPR1NNZnJNpNspt_XAuVMw')
-//const tg = new Telegram.Telegram('153015370:AAGJZs2XrwJ2CO5pqo-sf9Ti4ViUegJlk5c')
 
 class PingController extends TelegramBaseController {
     /**
