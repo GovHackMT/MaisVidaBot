@@ -43,11 +43,25 @@ class UrgenciaController extends TelegramBaseController {
                         parse_mode: 'Markdown' // in options field you can pass some additional data, like parse_mode
                     },
                     'Nenhuma':{
-                        message: 'Por favor, encaminhe o ferido para o hospital mais próximo.',
+                        message: 'Precisa de uma ambulancia no Local?',
+                        'Sim':() => {
+                            $.sendMessage('Envie por favor sua localização para que possa ser enviado uma unidade dos bombeiros para sua local.')
+                            $.waitForRequest
+                                .then($ => {
+                                    $.sendMessage('Enviando viatura para https://www.google.com.br/maps/@'+$.message._location._latitude+','+$.message._location._longitude+',21z')
+                                })
+                        },
+                        'Não':()=>{
+                            $.sendMessage('Envie por favor sua localização para que possa ser enviado uma unidade dos bombeiros para sua local.')
+                            $.waitForRequest
+                                .then($ => {
+                                    $.sendMessage('Enviando viatura para https://www.google.com.br/maps/@'+$.message._location._latitude+','+$.message._location._longitude+',21z')
+                                })
+                        }
                     },
                     '1':{
                         message: 'A pessoa se encontra',
-                        'conciente': () => {
+                        'Conciente': () => {
                             $.runMenu({
                                 message: 'Quais ferimentos a vitima apresenta?',
                                 options: {
@@ -94,7 +108,7 @@ class UrgenciaController extends TelegramBaseController {
                                 }
                             })
                         },
-                        'inconciente': () => {
+                        'Inconciente': () => {
                             $.runMenu({
                                 message: 'Quais ferimentos a vitima apresenta?',
                                 options: {
@@ -144,36 +158,8 @@ class UrgenciaController extends TelegramBaseController {
                         }
                     },
                     '2 ou mais':{
-                        message: 'Qual a sua ocorrencia?',
-                        'Incendio': () => {
-                            $.sendMessage('Qual é o tamanho do Incendio?')
-                            /*$.waitForRequest
-                                .then($ => {
-                                    //$.sendMessage($.message.text)
-                                })*/
-                        },
-                        'Acidente': () => {
-                            $.sendMessage('Ocorreu em um ambiente:')
-                            
-                        }
-                    },
-                    'anyMatch': () => { //will be executed at any other message
-                    }
-                })
-              },
-              'Urgencia de Saúde': () => {
-                  // Monta o menu em caso de Urgencia de Saude
-                  $.runMenu({
-                    message: 'Quantas Vítimas existem no local?',
-                    options: {
-                        parse_mode: 'Markdown' // in options field you can pass some additional data, like parse_mode
-                    },
-                    'Nenhuma':{
-                        message: 'Por favor, encaminhe o ferido para o hospital mais próximo.',
-                    },
-                    '1':{
                         message: 'A pessoa se encontra',
-                        'conciente': () => {
+                        'Conciente': () => {
                             $.runMenu({
                                 message: 'Quais ferimentos a vitima apresenta?',
                                 options: {
@@ -220,7 +206,119 @@ class UrgenciaController extends TelegramBaseController {
                                 }
                             })
                         },
-                        'inconciente': () => {
+                        'Inconciente': () => {
+                            $.runMenu({
+                                message: 'Quais ferimentos a vitima apresenta?',
+                                options: {
+                                    parse_mode: 'Markdown' // in options field you can pass some additional data, like parse_mode
+                                },
+                                'Nenhum visivel':{
+                                    message: 'Por favor, encaminhe o ferido para o hospital mais próximo.',
+                                },
+                                'Sangramento':{
+                                    message: 'Precisa de uma ambulancia no Local?',
+                                    'Sim':() => {
+                                        $.sendMessage('Envie por favor sua localização para que possa ser enviado uma unidade dos bombeiros para sua local.')
+                                        $.waitForRequest
+                                            .then($ => {
+                                                $.sendMessage('Enviando viatura para https://www.google.com.br/maps/@'+$.message._location._latitude+','+$.message._location._longitude+',21z')
+                                            })
+                                    },
+                                    'Não':()=>{
+                                        $.sendMessage('Envie por favor sua localização para que possa ser enviado uma unidade dos bombeiros para sua local.')
+                                        $.waitForRequest
+                                            .then($ => {
+                                                $.sendMessage('Enviando viatura para https://www.google.com.br/maps/@'+$.message._location._latitude+','+$.message._location._longitude+',21z')
+                                            })
+                                    }
+                                },
+                                'Fratura Esposta':{
+                                    message: 'Precisa de uma ambulancia no Local?',
+                                    'Sim':() => {
+                                        $.sendMessage('Envie por favor sua localização para que possa ser enviado uma unidade dos bombeiros para sua local.')
+                                        $.waitForRequest
+                                            .then($ => {
+                                                $.sendMessage('Enviando viatura para https://www.google.com.br/maps/@'+$.message._location._latitude+','+$.message._location._longitude+',21z')
+                                            })
+                                    },
+                                    'Não':()=>{
+                                        $.sendMessage('Envie por favor sua localização para que possa ser enviado uma unidade dos bombeiros para sua local.')
+                                        $.waitForRequest
+                                            .then($ => {
+                                                $.sendMessage('Enviando viatura para https://www.google.com.br/maps/@'+$.message._location._latitude+','+$.message._location._longitude+',21z')
+                                            })
+                                    }
+                                },
+                                'anyMatch': () => { //will be executed at any other message
+                                }
+                            })
+                            
+                        }
+                    },
+                    'anyMatch': () => { //will be executed at any other message
+                    }
+                })
+              },
+              'Urgencia de Saúde': () => {
+                  // Monta o menu em caso de Urgencia de Saude
+                  $.runMenu({
+                    message: 'Quantas Vítimas existem no local?',
+                    options: {
+                        parse_mode: 'Markdown' // in options field you can pass some additional data, like parse_mode
+                    },
+                    'Nenhuma':{
+                        message: 'Por favor, encaminhe o ferido para o hospital mais próximo.',
+                    },
+                    '1':{
+                        message: 'A pessoa se encontra',
+                        'Conciente': () => {
+                            $.runMenu({
+                                message: 'Quais ferimentos a vitima apresenta?',
+                                options: {
+                                    parse_mode: 'Markdown' // in options field you can pass some additional data, like parse_mode
+                                },
+                                'Nenhum visivel':{
+                                    message: 'Por favor, encaminhe o ferido para o hospital mais próximo.',
+                                },
+                                'Sangramento':{
+                                    message: 'Precisa de uma ambulancia no Local?',
+                                    'Sim':() => {
+                                        $.sendMessage('Envie por favor sua localização para que possa ser enviado uma unidade dos bombeiros para sua local.')
+                                        $.waitForRequest
+                                            .then($ => {
+                                                $.sendMessage('Enviando viatura para https://www.google.com.br/maps/@'+$.message._location._latitude+','+$.message._location._longitude+',21z')
+                                            })
+                                    },
+                                    'Não':()=>{
+                                        $.sendMessage('Envie por favor sua localização para que possa ser enviado uma unidade dos bombeiros para sua local.')
+                                        $.waitForRequest
+                                            .then($ => {
+                                                $.sendMessage('Enviando viatura para https://www.google.com.br/maps/@'+$.message._location._latitude+','+$.message._location._longitude+',21z')
+                                            })
+                                    }
+                                },
+                                'Fratura Esposta':{
+                                    message: 'Precisa de uma ambulancia no Local?',
+                                    'Sim':() => {
+                                        $.sendMessage('Envie por favor sua localização para que possa ser enviado uma unidade dos bombeiros para sua local.')
+                                        $.waitForRequest
+                                            .then($ => {
+                                                $.sendMessage('Enviando viatura para https://www.google.com.br/maps/@'+$.message._location._latitude+','+$.message._location._longitude+',21z')
+                                            })
+                                    },
+                                    'Não':()=>{
+                                        $.sendMessage('Envie por favor sua localização para que possa ser enviado uma unidade dos bombeiros para sua local.')
+                                        $.waitForRequest
+                                            .then($ => {
+                                                $.sendMessage('Enviando viatura para https://www.google.com.br/maps/@'+$.message._location._latitude+','+$.message._location._longitude+',21z')
+                                            })
+                                    }
+                                },
+                                'anyMatch': () => { //will be executed at any other message
+                                }
+                            })
+                        },
+                        'Inconciente': () => {
                             $.runMenu({
                                 message: 'Quais ferimentos a vitima apresenta?',
                                 options: {
@@ -359,7 +457,7 @@ class UrgenciaController extends TelegramBaseController {
                     }
                   })
               },
-              'Violencia x Mulher': () => {
+              'Violência x Mulher': () => {
                   $.runMenu({
                     message: 'Quantas Vítimas existem no local?',
                     options: {
